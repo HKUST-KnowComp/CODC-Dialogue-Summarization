@@ -1,0 +1,254 @@
+===================trans copy using new knowledge===================
+
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py -save_model models/new_train_know/trans_copy_top3_prob3_blank005 \
+    -know_train_from dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+    -know_train_from_type finetune \
+    -p_kgen_func mlp \
+    -data dataset/train_know_with_blank/top3_prob3_blank005 \
+    -knowledge \
+    -know_emb_init from_tgt \
+    -know_loss_lambda 0.0 \
+    -know_attn_type mlp \
+    -know_query ori_query \
+    -prob_logits_type include_k_context \
+    -trans_know_query_type iter_query \
+    -layers 4 \
+    -rnn_size 256 \
+    -word_vec_size 256 \
+    -max_grad_norm 0 \
+    -optim adam \
+    -encoder_type transformer \
+    -decoder_type transformer \
+    -position_encoding \
+    -dropout 0.2 \
+    -param_init 0 \
+    -warmup_steps 8000 \
+    -learning_rate 2 \
+    -decay_method noam \
+    -label_smoothing 0.1 \
+    -adam_beta2 0.998 \
+    -batch_size 4096 \
+    -batch_type tokens \
+    -normalization tokens \
+    -max_generator_batches 2 \
+    -train_steps 50000 \
+    -accum_count 4 \
+    -share_embeddings \
+    -param_init_glorot \
+    -copy_attn \
+    -reuse_copy_attn \
+    -world_size 1 \
+    -gpu_ranks 0 \
+    -valid_steps 2500 > info/new_train_set/trans_copy_top3_prob3_blank005 &
+
+===================trans train using retrieved knowledge===================
+## transformer
+CUDA_VISIBLE_DEVICES=3 nohup python -u train.py -save_model models/restrict_vocab/trans_nocopy_top3_trainknow \
+    -data dataset/selected/ret_top3 \
+    -know_train_from dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+    -know_train_from_type finetune \
+    -p_kgen_func mlp \
+    -knowledge \
+    -know_emb_init from_tgt \
+    -know_loss_lambda 0.0 \
+    -know_attn_type mlp \
+    -know_query ori_query \
+    -prob_logits_type include_k_context \
+    -trans_know_query_type iter_query \
+    -layers 4 \
+    -rnn_size 256 \
+    -word_vec_size 256 \
+    -max_grad_norm 0 \
+    -optim adam \
+    -encoder_type transformer \
+    -decoder_type transformer \
+    -position_encoding \
+    -dropout 0.2 \
+    -param_init 0 \
+    -warmup_steps 8000 \
+    -learning_rate 2 \
+    -decay_method noam \
+    -label_smoothing 0.1 \
+    -adam_beta2 0.998 \
+    -batch_size 4096 \
+    -batch_type tokens \
+    -normalization tokens \
+    -max_generator_batches 2 \
+    -train_steps 50000 \
+    -accum_count 4 \
+    -share_embeddings \
+    -param_init_glorot \
+    -world_size 1 \
+    -gpu_ranks 0 \
+    -valid_steps 2500 > info/restrict_vocab/trans_nocopy_top3_trainknow &
+
+===================trans copy know===================
+# 2. train using /home/tfangaa/projects/OpenNMT-py-summ/dataset/new_graph/train_ood_top3_r54_f37
+
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py -save_model models/restrict_vocab/trans_copy_top3_r54f37_general \
+    -know_train_from dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+    -know_train_from_type finetune \
+    -p_kgen_func mlp \
+    -data dataset/selected/train_ood_top3_r54_f37_for_copy_know \
+    -knowledge \
+    -know_emb_init from_tgt \
+    -know_loss_lambda 0.001 \
+    -know_attn_type general \
+    -know_query ori_query \
+    -prob_logits_type include_k_context \
+    -trans_know_query_type iter_query \
+    -layers 4 \
+    -rnn_size 256 \
+    -word_vec_size 256 \
+    -max_grad_norm 0 \
+    -optim adam \
+    -encoder_type transformer \
+    -decoder_type transformer \
+    -position_encoding \
+    -dropout 0.2 \
+    -param_init 0 \
+    -warmup_steps 8000 \
+    -learning_rate 2 \
+    -decay_method noam \
+    -label_smoothing 0.1 \
+    -adam_beta2 0.998 \
+    -batch_size 4096 \
+    -batch_type tokens \
+    -normalization tokens \
+    -max_generator_batches 2 \
+    -train_steps 50000 \
+    -accum_count 4 \
+    -share_embeddings \
+    -param_init_glorot \
+    -copy_attn \
+    -reuse_copy_attn \
+    -world_size 1 \
+    -gpu_ranks 0 \
+    -valid_steps 2500 > info/restrict_vocab/trans_copy_top3_r54f37_general &
+
+===================trans no copy know===================
+
+CUDA_VISIBLE_DEVICES=3 nohup python -u train.py -save_model models/restrict_vocab/trans_nocopy_top3_r54f37_mlp \
+    -know_train_from dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+    -know_train_from_type finetune \
+    -p_kgen_func mlp \
+    -data /home/tfangaa/projects/OpenNMT-py-summ/dataset/new_graph/train_ood_top3_r54_f37 \
+    -knowledge \
+    -know_emb_init from_tgt \
+    -know_loss_lambda 0.0 \
+    -know_attn_type mlp \
+    -know_query ori_query \
+    -prob_logits_type include_k_context \
+    -trans_know_query_type iter_query \
+    -layers 4 \
+    -rnn_size 256 \
+    -word_vec_size 256 \
+    -max_grad_norm 0 \
+    -optim adam \
+    -encoder_type transformer \
+    -decoder_type transformer \
+    -position_encoding \
+    -dropout 0.2 \
+    -param_init 0 \
+    -warmup_steps 8000 \
+    -learning_rate 2 \
+    -decay_method noam \
+    -label_smoothing 0.1 \
+    -adam_beta2 0.998 \
+    -batch_size 4096 \
+    -batch_type tokens \
+    -normalization tokens \
+    -max_generator_batches 2 \
+    -train_steps 50000 \
+    -accum_count 4 \
+    -share_embeddings \
+    -param_init_glorot \
+    -world_size 1 \
+    -gpu_ranks 0 \
+    -valid_steps 2500 > info/restrict_vocab/trans_nocopy_top3_r54f37_mlp &
+
+===================copy attn know===================
+
+CUDA_VISIBLE_DEVICES=1 nohup python -u train.py -save_model models/restrict_vocab/copy_attn_top3_r54f37_general \
+           -know_train_from dep_models/all_caps_baseline/copy_attn_step_100000.pt \
+           -know_train_from_type finetune \
+           -p_kgen_func mlp \
+           -data dataset/selected/train_ood_top3_r54_f37_for_copy_know \
+           -knowledge \
+           -know_emb_init from_tgt \
+           -know_loss_lambda 0.0 \
+           -know_attn_type general \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -start_decay_steps 50000 \
+           -max_grad_norm 2 \
+           -dropout 0.0 \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -copy_attn \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 5000 > info/restrict_vocab/copy_attn/copy_attn_top3_r54f37_general &
+# 4. seq2seq
+
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py -save_model models/restrict_vocab/seq2seq_top3_r54f37_mlp_fromcopyattn \
+           -know_train_from dep_models/all_caps_baseline/copy_attn_step_100000.pt \
+           -know_train_from_type finetune \
+           -p_kgen_func mlp \
+           -data /home/tfangaa/projects/OpenNMT-py-summ/dataset/new_graph/train_ood_top3_r54_f37 \
+           -knowledge \
+           -know_emb_init from_tgt \
+           -know_loss_lambda 0.0 \
+           -know_attn_type general \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -start_decay_steps 50000 \
+           -max_grad_norm 2 \
+           -dropout 0.0 \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 5000 > info/restrict_vocab/seq2seq/seq2seq_top3_r54f37_mlp_fromcopyattn &
+  # seq2seq baseline without bridge mechanism
+
+OMP_NUM_THREADS=2 CUDA_VISIBLE_DEVICES=1 nohup python -u train.py -save_model models/baselines/seq2seq_nobridge \
+           -data dataset/ood/all_caps/train_dialog_shuffle_noknow \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -start_decay_steps 50000 \
+           -max_grad_norm 2 \
+           -dropout 0.0 \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 5000 > info/restrict_vocab/seq2seq/seq2seq_nobridge_baseline &

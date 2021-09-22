@@ -1,0 +1,53 @@
+# 尝试Finetune的，已经不需要看了。结论是还是用adgrad Lr0.15靠谱，adam不行
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/fintune_baselines/finetune_lr15_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_20_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/finetune_lr15_100k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 1 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/fintune_baselines/finetune_adam_lr0005_step_90000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_20_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/finetune_adam_lr0005_90k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+finetune_adam_lr0005
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/fintune_baselines/finetune_adam_lr0005_step_50000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_20_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/finetune_adam_lr0005_60k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+copy_attn
+
+python translate.py -gpu 1 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/fintune_baselines/finetune_copy_lr15_step_95000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_20_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/finetune_copy_lr15_95k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 

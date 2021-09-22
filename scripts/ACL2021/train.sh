@@ -1,0 +1,41 @@
+CUDA_VISIBLE_DEVICES=$1 OMP_NUM_THREADS=1 nohup python -u train.py \
+    -save_model $2 \
+    -know_train_from $3 \
+    -know_train_from_type finetune \
+    -p_kgen_func mlp \
+    -data $4 \
+    -knowledge \
+    -know_emb_init from_tgt \
+    -know_loss_lambda 0.0 \
+    -know_attn_type mlp \
+    -know_query ori_query \
+    -prob_logits_type include_k_context \
+    -trans_know_query_type iter_query \
+    -layers 4 \
+    -rnn_size 256 \
+    -word_vec_size 256 \
+    -max_grad_norm 0 \
+    -optim adam \
+    -encoder_type transformer \
+    -decoder_type transformer \
+    -position_encoding \
+    -dropout 0.2 \
+    -param_init 0 \
+    -warmup_steps 8000 \
+    -learning_rate 2 \
+    -decay_method noam \
+    -label_smoothing 0.1 \
+    -adam_beta2 0.998 \
+    -batch_size 4096 \
+    -batch_type tokens \
+    -normalization tokens \
+    -max_generator_batches 2 \
+    -train_steps 60000 \
+    -accum_count 4 \
+    -share_embeddings \
+    -param_init_glorot \
+    -copy_attn \
+    -reuse_copy_attn \
+    -world_size 1 \
+    -gpu_ranks 0 \
+    -valid_steps 2500 > $5 &

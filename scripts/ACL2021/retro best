@@ -1,0 +1,30 @@
+# retro best
+
+bash scripts/ACL2021/translate_esa.sh 1 random_train_know/trans_copy_top5_prop0.1_step_40000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt random_train_know/nov_know/prop0.1_tfdep12_top5_40k &
+bash scripts/ACL2021/translate_esa.sh 1 random_train_know/trans_copy_top5_prop0.1_step_35000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt random_train_know/nov_know/prop0.1_tfdep12_top5_35k &
+
+bash scripts/ACL2021/translate_esa.sh 1 retro_nov_best/novel_start_trans_copy_depth5_top5_step_45000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt retro_nov_best/nov_best_know/novel_start_top5_45k &    
+
+bash scripts/ACL2021/translate_esa.sh 1 retro_nov_best/novel_start_trans_copy_depth5_top5_step_35000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt retro_nov_best/nov_best_know/novel_start_top5_35k &    
+bash scripts/ACL2021/translate_esa.sh 1 retro_nov_best/novel_start_trans_copy_depth5_top5_step_50000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt retro_nov_best/nov_best_know/novel_start_top5_50k
+bash scripts/ACL2021/translate_esa.sh 1 retro_nov_best/novel_start_trans_copy_depth5_top5_step_30000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt retro_nov_best/nov_best_know/novel_start_top5_30k &
+
+
+bash scripts/ACL2021/translate_esa.sh 1 retro_nov_best/trans_copy_depth5_top5_step_35000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt retro_nov_best/nov_best_know/top5_35k &    
+bash scripts/ACL2021/translate_esa.sh 1 retro_nov_best/trans_copy_depth5_top5_step_40000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt retro_nov_best/nov_best_know/top5_40k
+bash scripts/ACL2021/translate_esa.sh 1 retro_nov_best/trans_copy_depth5_top5_step_45000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt retro_nov_best/nov_best_know/top5_45k &
+bash scripts/ACL2021/translate_esa.sh 1 retro_nov_best/trans_copy_depth5_top6_step_40000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top6.txt retro_nov_best/nov_best_know/top6_40k &
+
+
+bash scripts/ACL2021/translate_esa.sh 1 retro_nov_best/trans_copy_depth5_top6_step_40000.pt \
+    bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top6.txt retro_nov_best/nov_best_know/top6_40k &

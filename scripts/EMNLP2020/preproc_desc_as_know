@@ -1,0 +1,64 @@
+python preprocess.py -knowledge \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/data/corpora/Dial2Desc/desc.train.txt \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.valid.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.valid.txt \
+        -save_data dataset/processed/knowdesctest_200enc_15dec_20kvocab_k10know_trunc40 \
+        -train_know /home/tfangaa/projects/implicature/desc_imp_as_know/train_know.txt \
+        -valid_know /home/tfangaa/projects/implicature/desc_imp_as_know/valid_know.txt \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 10 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite
+python preprocess.py -knowledge \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/data/corpora/Dial2Desc/desc.train.txt \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.valid.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.valid.txt \
+        -save_data dataset/processed/filter_knowdesctest_200enc_15dec_20kvocab_k10know_trunc40 \
+        -train_know /home/tfangaa/projects/implicature/desc_imp_as_know/train_know.txt.filter \
+        -valid_know /home/tfangaa/projects/implicature/desc_imp_as_know/valid_know.txt.filter \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 10 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite
+
+python preprocess.py -knowledge \
+        -train_src dataset/Dial2Desc_masked/dialog.train.txt \
+        -train_tgt dataset/Dial2Desc/desc.train.txt \
+        -valid_src dataset/Dial2Desc_masked/dialog.valid.txt \
+        -valid_tgt dataset/Dial2Desc/desc.valid.txt \
+        -save_data dataset/processed/masked_knowdesctest_200enc_15dec_20kvocab_k10know_trunc40 \
+        -train_know /home/tfangaa/projects/implicature/desc_imp_as_know/train_know.txt \
+        -valid_know /home/tfangaa/projects/implicature/desc_imp_as_know/valid_know.txt \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 40 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite

@@ -1,0 +1,45 @@
+
+===========2021 train using november knowledge=============
+
+bash scripts/ACL2021/train.sh 0 models/EMNLP2020-retro/retro_nov_best/trans_copy_depth5_top7 \
+    models/EMNLP2020/dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+    dataset/EMNLP2020-retro/nov_know/train_dep5_top7 \
+    logs/EMNLP-retro/retro_nov_best/trans_copy_depth5_top7
+
+bash scripts/ACL2021/train.sh 2 models/EMNLP2020-retro/retro_nov_best/novel_start_trans_copy_depth5_top5 \
+    models/EMNLP2020-retro/fivecap_baselines/trans_copy_step_50000.pt \
+    dataset/EMNLP2020-retro/train_know_depth5_top5 \
+    logs/EMNLP-retro/retro_nov_best/novel_start_trans_copy_depth5_top5
+
+===========2021=============
+
+1. ESA_v1
+bash scripts/ACL2021/train.sh 1 models/EMNLP2020-retro/esa_v1/retrain_trans_copy_top10 \
+    models/EMNLP2020-retro/fivecap_baselines/trans_copy_step_50000.pt \
+    dataset/EMNLP2020-retro/esa_v1/train_esa_top10 \
+    logs/EMNLP-retro/esa_v1/retrain_trans_copy_top10
+
+2. Random Training Knowledge
+bash scripts/ACL2021/train.sh 2 models/EMNLP2020-retro/random_train_know/trans_copy_top8_prop0.2 \
+    models/EMNLP2020-retro/fivecap_baselines/trans_copy_step_50000.pt \
+    dataset/EMNLP2020-retro/random_train_know/fivecap_top8_prop0.2_train \
+    logs/EMNLP-retro/random_train_know/trans_copy_top8_prop0.2
+
+3. Random Traiing Knowl, 5 cap know different.
+bash scripts/ACL2021/train.sh 0 models/EMNLP2020-retro/random-fivecap/trans_copy_top6_prop0.2 \
+    models/EMNLP2020-retro/fivecap_baselines/trans_copy_step_50000.pt \
+    dataset/EMNLP2020-retro/random-fivecap/fivecap_top6_prop0.2_train \
+    logs/EMNLP-retro/random-fivecap/trans_copy_top6_prop0.2
+
+
+===========2020=============
+
+bash scripts/ACL2021/train.sh 1 models/ACL2021/two_step/trans_copy_top3_torch16 \
+    models/EMNLP2020/dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+    dataset/EMNLP2020/train_know_with_blank/top3_prob3_blank005 \
+    info/ACL2021/trans_copy/initial_test_torch16
+
+bash scripts/ACL2021/train.sh 1 models/EMNLP2020-retro/trans_copy_depth5_top5 \
+    models/EMNLP2020/dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+    dataset/EMNLP2020-retro/train_know_depth5_top5 \
+    info/EMNLP2020-retro/trans_copy_depth5_top5

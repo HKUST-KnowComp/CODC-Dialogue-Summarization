@@ -1,0 +1,36 @@
+/home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top10
+python translate.py -gpu 1 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/input_attn/top_10_loss001_share_step_75000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top10 \
+     -output dep_models/input_attn/decode_top_10_loss001_share_75k_ood_rf_top10 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 1 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/input_attn/top_10_loss001_share_step_75000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_10_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/input_attn/decode_top_10_loss001_share_75k_ftq \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 1 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/from_tgt_pen_002_decay15k_step_70000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/top_10 \
+     -output fffff \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 

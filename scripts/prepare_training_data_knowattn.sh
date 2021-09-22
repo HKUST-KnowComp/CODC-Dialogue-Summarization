@@ -1,0 +1,19 @@
+python preprocess.py \
+        -knowledge \
+        -train_src codc_data/dialogs/dialog.train.5ref.txt \
+        -train_tgt codc_data/ground/desc.train.5ref.txt \
+        -save_data dataset/know_attn \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 500000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 15 \
+        -train_know /path/to/training/knowledge \
+        -overwrite

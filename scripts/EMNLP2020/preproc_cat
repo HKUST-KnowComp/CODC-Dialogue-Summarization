@@ -1,0 +1,21 @@
+python preprocess.py -knowledge \
+        -train_src /home/tfangaa/projects/process_dial2desc/all_5_caps/train_dialog_shuffle \
+        -train_tgt /home/tfangaa/projects/process_dial2desc/all_5_caps/train_descs_shuffle \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.test.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.test.txt \
+        -save_data dataset/cats/demotest \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 500000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 8 \
+        -train_know /home/tfangaa/projects/MSCOCO/train_cat_know \
+        -valid_know /home/tfangaa/projects/MSCOCO/valid_cat_know \
+        -overwrite 

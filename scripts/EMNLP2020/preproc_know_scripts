@@ -1,0 +1,7 @@
+bash scripts/ACL2021/preproc_know.sh /home/tfangaa/projects/process_dial2desc/all_5_caps/train_dialog_shuffle \
+        /home/tfangaa/projects/process_dial2desc/all_5_caps/train_descs_shuffle \
+        /home/data/corpora/Dial2Desc/dialog.test.txt \
+        /home/data/corpora/Dial2Desc/desc.test.txt \
+        dataset/EMNLP2020-retro/train_know_depth5_top5 \
+        inference/EMNLP2020/knowledge/ref5/train_depth5_top_5 \
+        /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top5

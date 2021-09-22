@@ -1,0 +1,95 @@
+
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model /home/tfangaa/projects/OpenNMT-py-summ/dep_models/use_G_ood_top20/know_pen_002_fromcopyattn_step_75000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top10 \
+     -output dep_models/use_G_ood_top20/know_pen_002_75k_ood_rf_top10 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+
+
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model /home/tfangaa/projects/OpenNMT-py-summ/dep_models/use_G_ood_top20/know_pen_002_fromcopyattn_step_75000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_10_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/use_G_ood_top20/know_pen_002_75k_ood_rf_top10 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+# 20191206
+
+# 先做个decode_know_without_copy的实验：用top10的
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/train_top_10/from_copy_attn/from_tgt_pen_008_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_10_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/train_top_10/from_copy_attn/decode_from_tgt_pen_008_ftq_2 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -decode_know_without_copy \
+     -beam_size 4 \
+     -model dep_models/train_top_10/from_copy_attn/from_tgt_pen_008_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_10_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/train_top_10/from_copy_attn/decode_from_tgt_pen_008_decode_know_without_copy \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/train_top_10/from_copy_attn/from_tgt_pen_008_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_20_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/train_top_10/from_copy_attn/decode_from_tgt_pen_008_top20 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/train_top_20/from_copy_attn/from_tgt_pen_002_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_20_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/train_top_20/from_copy_attn/decode_from_tgt_pen_002_decay25k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/train_top_20/from_copy_attn/forcecopy_from_tgt_pen_002_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_20_filter_num_1cutoff_prob_0.0 \
+     -output dep_models/train_top_20/from_copy_attn/decode_forcecopy_from_tgt_pen_002_decay25k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 

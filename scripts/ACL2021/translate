@@ -1,0 +1,115 @@
+===========2021bashes=============
+
+# esa v1, pre sample 1:10 to calc ESA, the train know are from the classifier
+bash scripts/ACL2021/translate_esa.sh 0 esa_v1/retrain_trans_copy_top10_step_30000.pt \
+     esa-all/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt esa_v1/tfdep12_top5_30k &
+
+# random_train_know
+bash scripts/ACL2021/translate_esa.sh 3 random_train_know/trans_copy_top5_prop0.4_step_35000.pt \
+     bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt random_train_know/nov_know/prop0.4_tfdep12_top5_35k &
+
+
+# Check top 5-10
+
+bash scripts/ACL2021/translate_esa.sh 0 random_train_know/trans_copy_top5_prop0.2_step_35000.pt \
+     esa-v2/no_esa/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top11.txt  random_train_know/esa_v2/no_esa/prop0.2_tfdep12_top11_35k_trainedtop5 &
+bash scripts/ACL2021/translate_esa.sh 0 random_train_know/trans_copy_top5_prop0.2_step_35000.pt \
+     esa-v2/no_esa/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top12.txt  random_train_know/esa_v2/no_esa/prop0.2_tfdep12_top12_35k_trainedtop5 &
+bash scripts/ACL2021/translate_esa.sh 1 random_train_know/trans_copy_top5_prop0.2_step_35000.pt \
+     esa-v2/no_esa/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top13.txt  random_train_know/esa_v2/no_esa/prop0.2_tfdep12_top13_35k_trainedtop5 &
+bash scripts/ACL2021/translate_esa.sh 1 random_train_know/trans_copy_top5_prop0.2_step_35000.pt \
+     esa-v2/no_esa/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top14.txt  random_train_know/esa_v2/no_esa/prop0.2_tfdep12_top14_35k_trainedtop5 &
+bash scripts/ACL2021/translate_esa.sh 2 random_train_know/trans_copy_top5_prop0.2_step_35000.pt \
+     esa-v2/no_esa/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top9.txt  random_train_know/esa_v2/no_esa/prop0.2_tfdep12_top9_35k_trainedtop5 &
+bash scripts/ACL2021/translate_esa.sh 2 random_train_know/trans_copy_top5_prop0.2_step_35000.pt \
+     esa-v2/no_esa/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top10.txt  random_train_know/esa_v2/no_esa/prop0.2_tfdep12_top10_35k_trainedtop5 &
+
+
+
+
+# random_fivecap
+bash scripts/ACL2021/translate_esa.sh 0 random-fivecap/trans_copy_top5_prop0.4_step_20000.pt \
+     esa-all/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt random-fivecap/esa_v1/prop0.4_tfdep12_top5_20k &
+
+bash scripts/ACL2021/translate_esa.sh 0 retro_nov_best/novel_start_trans_copy_depth5_top5_step_40000.pt \
+     esa-all/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt random-fivecap/esa_v1/prop0.4_tfdep12_top5_25k &    
+
+
+
+===========2021=============
+python translate.py -gpu 0 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/EMNLP2020-retro/one_cap_potentially/trans_copy_depth5_top5_step_45000.pt \
+     -src haojie/data/dialogs/dialog.test.txt \
+     -know inference/EMNLP-retro/knowledge/esa-all/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt \
+     -output decodings/EMNLP2020-retro/esa_v1_trained_with_one_cap_potentially/top5_45k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose  
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/EMNLP2020-retro/one_cap_potentially/trans_copy_depth5_top5_step_40000.pt \
+     -src haojie/data/dialogs/dialog.test.txt \
+     -know inference/EMNLP-retro/knowledge/esa-v2/noesa_rfdepth8_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt \
+     -output decodings/EMNLP2020-retro/esa_v2/noesa_traindep5_testdep8_top5_40k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose  
+
+
+baselines:
+
+python translate.py -gpu 0 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/EMNLP2020-retro/fivecap_baselines/trans_copy_step_35000.pt \
+     -src haojie/data/dialogs/dialog.test.txt \
+     -output decodings/EMNLP2020-retro/baselines/trans_copy/35k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose  
+
+
+
+
+===========December=============
+
+# 12282
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/EMNLP2020-retro/one_cap_potentially/trans_copy_depth5_top2_step_40000.pt \
+     -src dataset/EMNLP2020/Dial2Desc/dialog.test.txt \
+     -know inference/EMNLP-retro/knowledge/rfdepth10_mindepth4_mindis0_EMNLP_filter_nofilter_test_top3.txt \
+     -output decodings/EMNLP2020-retro/five_cap_common_neigh2/rfdepth10_mindepth4_mindis0_EMNLP_filter_nofilter_test_top3 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose
+
+     /home/tfangaa/projects/process_dial2desc/dep_wordnet_know/prepared_knowledge/test_common_neighbor_top3 
+
+     inference/EMNLP2020/knowledge/com_neigh_depth15_top1
+
+     haojie/data/dialogs/dialog.test.txt
+
+
+# 12083
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/EMNLP2020-retro/one_cap_potentially/trans_copy_depth5_top5_step_40000.pt \
+     -src haojie/data/dialogs/dialog.test.txt \
+     -know inference/EMNLP-retro/knowledge/bak/rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5.txt \
+     -output decodings/EMNLP2020-retro/five_cap_common_neigh2/re_rfdepth12_mindepth4_mindis0_EMNLP_filter_nofilter_test_top5 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose   
+
+

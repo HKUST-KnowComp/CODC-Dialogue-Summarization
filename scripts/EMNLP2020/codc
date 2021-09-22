@@ -1,0 +1,60 @@
+python eval_codc.py -d /home/data/corpora/Dial2Desc/dialog.test.txt -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt -c dep_models/all_caps_baseline/decode_seq2seq_100k --use-cache --grt-cache-path ./grt.cache.pkl --cand-cache-path dep_models/all_caps_baseline/decode_seq2seq_100k.cache.pkl
+
+Precision: 27.12
+Recall: 19.48
+F1: 22.67
+
+python eval_codc.py -d /home/data/corpora/Dial2Desc/dialog.test.txt -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt -c dep_models/all_caps_baseline/decode_copy_attn_100k --use-cache --grt-cache-path ./grt.cache.pkl --cand-cache-path dep_models/all_caps_baseline/decode_copy_attn_100k.cache.pkl
+
+Precision: 28.30
+Recall: 18.74
+F1: 22.55
+
+python eval_codc.py -d /home/data/corpora/Dial2Desc/dialog.test.txt -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt -c dep_models/ood/all_caps/decode_ood_r57_f54_100k_withtop5 --use-cache --grt-cache-path ./grt.cache.pkl --cand-cache-path dep_models/ood/all_caps/decode_ood_r57_f54_100k_withtop5.cache.pkl
+
+Precision: 29.26
+Recall: 22.13
+F1: 25.20
+
+python eval_codc.py -d /home/data/corpora/Dial2Desc/dialog.test.txt -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt -c dep_models/ood/all_caps/decode_ood_r57_f54_knowloss001_100k_withtop5 --use-cache --grt-cache-path ./grt.cache.pkl --cand-cache-path dep_models/ood/all_caps/decode_ood_r57_f54_knowloss001_100k_withtop5.cache.pkl
+
+Precision: 29.52
+Recall: 22.29
+F1: 25.40
+
+# train with one caption:
+
+/home/tfangaa/projects/OpenNMT-py/models/baseline_O/copy_attn/v10k/decode/OO_decode_4beam_step_100000
+
+python eval_codc.py -d /home/data/corpora/Dial2Desc/dialog.test.txt -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt -c /home/tfangaa/projects/OpenNMT-py/models/baseline_O/copy_attn/v10k/decode/OO_decode_4beam_step_100000 --use-cache --grt-cache-path ./grt.cache.pkl --cand-cache-path /home/tfangaa/projects/OpenNMT-py/models/baseline_O/copy_attn/v10k/decode/OO_decode_4beam_step_100000.cache.pkl
+
+Precision: 28.25
+Recall: 16.37
+F1: 20.73
+
+/home/tfangaa/projects/OpenNMT-py/models/baseline_O/seq2seq/v10k/decode/OO_decode_4beam_step_100000
+
+python eval_codc.py -d /home/data/corpora/Dial2Desc/dialog.test.txt -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt -c /home/tfangaa/projects/OpenNMT-py/models/baseline_O/seq2seq/v10k/decode/OO_decode_4beam_step_100000 --use-cache --grt-cache-path ./grt.cache.pkl --cand-cache-path /home/tfangaa/projects/OpenNMT-py/models/baseline_O/seq2seq/v10k/decode/OO_decode_4beam_step_100000.cache.pkl
+Precision: 27.06
+Recall: 17.31
+F1: 21.11
+
+/home/tfangaa/projects/OpenNMT-py-summ/dep_models/ood/decode_r57_top5
+python eval_codc.py -d /home/data/corpora/Dial2Desc/dialog.test.txt -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt -c /home/tfangaa/projects/OpenNMT-py-summ/dep_models/ood/decode_r57_top5 --use-cache --grt-cache-path ./grt.cache.pkl --cand-cache-path /home/tfangaa/projects/OpenNMT-py-summ/dep_models/ood/decode_r57_top5.cache.pkl
+
+################################################################################
+trans
+################################################################################
+
+/home/tfangaa/projects/OpenNMT-py-summ/dep_models/all_caps_baseline/decode_trans_copy_40k
+python eval_codc.py -d /home/data/corpora/Dial2Desc/dialog.test.txt -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt -c /home/tfangaa/projects/OpenNMT-py-summ/dep_models/all_caps_baseline/decode_trans_copy_40k --use-cache --grt-cache-path ./grt.cache.pkl --cand-cache-path /home/tfangaa/projects/OpenNMT-py-summ/dep_models/all_caps_baseline/decode_trans_copy_40k.cache.pkl
+
+28.27
+Recall: 20.11
+F1: 23.50
+
+/home/tfangaa/projects/OpenNMT-py-summ/dep_models/ood/all_caps/decode_trans_copy_ood_r57_f54_iter_query_40k_withtop5
+python eval_codc.py -d /home/data/corpora/Dial2Desc/dialog.test.txt -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt -c /home/tfangaa/projects/OpenNMT-py-summ/dep_models/ood/all_caps/decode_trans_copy_ood_r57_f54_iter_query_40k_withtop5 --use-cache --grt-cache-path ./grt.cache.pkl --cand-cache-path /home/tfangaa/projects/OpenNMT-py-summ/dep_models/ood/all_caps/decode_trans_copy_ood_r57_f54_iter_query_40k_withtop5.cache.pkl
+Precision: 29.23
+Recall: 24.01
+F1: 26.36

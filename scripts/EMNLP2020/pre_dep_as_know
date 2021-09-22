@@ -1,0 +1,106 @@
+# this uses G_ood, f1 0.2左右, deprecated
+
+python preprocess.py -knowledge \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/data/corpora/Dial2Desc/desc.train.txt \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.valid.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.valid.txt \
+        -save_data dataset/processed/dep_ret_as_know_test_o \
+        -train_know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/train_retrieved_20 \
+        -valid_know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/valid_oodprop_20 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 20 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite
+
+# this 没用，全删了
+python preprocess.py -knowledge \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/data/corpora/Dial2Desc/desc.train.txt \
+        -save_data dataset/processed/dep_ret_as_know_00003 \
+        -train_know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/train_retrieved_top_30_filter_num_1cutoff_prob_0.0003 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 20 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite
+
+# knowledge with f1 0.36 没用，全删了
+
+python preprocess.py -knowledge \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/data/corpora/Dial2Desc/desc.train.txt \
+        -save_data dataset/processed/dep_ret_as_know_0001_f1_36 \
+        -train_know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/train_retrieved_top_20_filter_num_1cutoff_prob_0.001 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 20 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite
+
+# knowledge top 10
+
+python preprocess.py -knowledge \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/data/corpora/Dial2Desc/desc.train.txt \
+        -save_data dataset/processed/dep_ret_as_know_top10 \
+        -train_know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/train_retrieved_top_10_filter_num_1cutoff_prob_0.0 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 20 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite
+
+# knowledge top 20 using desc knowledge
+
+python preprocess.py -knowledge \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/data/corpora/Dial2Desc/desc.train.txt \
+        -save_data dataset/processed/dep_ret_as_know_top20 \
+        -train_know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/train_retrieved_top_20_filter_num_1cutoff_prob_0.0 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 20 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite

@@ -1,0 +1,97 @@
+python translate.py -gpu 1 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/ood/all_caps/train_ood_r57_f54_fromscratch_step_200000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top5 \
+     -output dep_models/ood/all_caps/decode_ood_r57_f54_fromscratch_200k_withtop5 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+## baseline
+
+python translate.py -gpu 0 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -output dep_models/all_caps_baseline/decode_trans_copy_40k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 0 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -output dep_models/all_caps_baseline/test \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+## baseline
+
+train_ood_r57_f54_step_100000.pt
+
+/home/tfangaa/projects/process_dial2desc/implicature/desc_imp_as_know/no_wn_filter/test_imp_without_wn.txt.filter.comp8
+/home/tfangaa/projects/process_dial2desc/depen-parse/similarity/top_10
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/mesa/train_f174/from_copy_attn_decay50k_knowdrop03_reg01_outdrop0_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/implicature/desc_imp_as_know/no_wn_filter/test_imp_without_wn.txt.filter \
+     -output dep_models/mesa/train_f174/decode_cheat_ori \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/mesa/deptest_no_wn_filter_noreg_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top8 \
+     -output dep_models/mesa/decode_ood_rf_top8_3gram \
+     -min_length 5 \
+     -max_length 15 \
+     -block_ngram_repeat 3 \
+     -ignore_when_blocking "." "</t>" "<t>" \
+     -verbose 
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/mesa/deptest_no_wn_filter_noreg_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/implicature/desc_imp_as_know/no_wn_filter/test_imp_without_wn.txt.filter.comp10 \
+     -output fuck_comp10 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/mesa/train_f174/from_copy_attn_decay50k_knowdrop03_reg01_outdrop0_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.train.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/knowledge/train_dep_concepts_f187 \
+     -output fuck \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+加coverage
+

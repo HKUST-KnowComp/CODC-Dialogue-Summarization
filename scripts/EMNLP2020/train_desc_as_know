@@ -1,0 +1,75 @@
+CUDA_VISIBLE_DEVICES=1 nohup python -u train.py -save_model models/desc_as_know_O/basic_test \
+           -data dataset/processed/knowdesctest_200enc_15dec_20kvocab_k10know_trunc40 \
+           -knowledge \
+           -know_attn_type mlp \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 10000 > info/desc_as_know_O &
+
+
+CUDA_VISIBLE_DEVICES=1 nohup python -u train.py -save_model models/desc_as_know_M/basic_test \
+           -data dataset/processed/masked_knowdesctest_200enc_15dec_20kvocab_k10know_trunc40 \
+           -knowledge \
+           -know_attn_type mlp \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 10000 > info/desc_as_know_M &
+
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py -save_model models/desc_as_know_O/filtered_imp \
+           -data dataset/processed/filter_knowdesctest_200enc_15dec_20kvocab_k10know_trunc40 \
+           -knowledge \
+           -know_attn_type mlp \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 10000 > info/desc_as_know_O &        

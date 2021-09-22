@@ -1,0 +1,113 @@
+----------------------Core knowledge selected----------------------
+# 
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model /home/tfangaa/projects/OpenNMT-py-summ/dep_models/new_graph/trans_know_top3_r54_f37_step_40000.pt \
+     -src  /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_top_3 \
+     -output selected_item/test_top3 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+----------------------Core knowledge all----------------------  
+python translate.py -gpu 0 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model /home/tfangaa/projects/OpenNMT-py-summ/dep_models/new_graph/trans_know_top3_r54_f37_step_40000.pt \
+     -src  dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/knowledge/test_top_3 \
+     -output selected_item/top3_r54f37_all \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+----------------------trans-copy-baseline----------------------
+python translate.py -gpu 0 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+     -src  dataset/Dial2Desc/dialog.test.txt \
+     -output selected_item/base_trans_all \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose
+
+----------------------👍trans-copy-know----------------------
+
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/restrict_vocab/trans_copy_top3_r54f37_mlp_step_40000.pt \
+     -src  dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/dep_wordnet_know/prepared_knowledge/test_common_neighbor_top3 \
+     -output new_train_decode/trans_copy_top3_prob4_blank005_35k_previousknow \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/restrict_vocab/trans_copy_top3_r54f37_mlp_knowloss001_step_35000.pt \
+     -src  dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/dep_wordnet_know/prepared_knowledge/test_common_neighbor_top3 \
+     -output new_train_decode/trans_copy_top3_r54f37_mlp_knowloss001_35k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+----------------------copy-attn-baseline----------------------
+python translate.py -gpu 0 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/all_caps_baseline/copy_attn_step_100000.pt \
+     -src  /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected \
+     -output selected_item/copy_attn/copy_attn_baseline_selected \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose
+
+----------------------seq2seq-baseline----------------------
+python translate.py -gpu 3 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model dep_models/all_caps_baseline/seq2seq_step_100000.pt \
+     -src  /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected \
+     -output selected_item/seq2seq/seq2seq_baseline_selected \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose
+
+----------------------seq2seq-know----------------------
+是不是要搞一个seq2seq mlp
+python translate.py -gpu 0 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/restrict_vocab/seq2seq_top3_r54f37_general_step_100000.pt \
+     -src  dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/dep_wordnet_know/prepared_knowledge/test_common_neighbor_top3 \
+     -output new_train_decode/seq2seq_top3_r54f37_general \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+----------------------copy-attn-know----------------------
+python translate.py -gpu 2 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/restrict_vocab/copy_attn_top3_r54f37_mlp_step_100000.pt \
+     -src  dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/dep_wordnet_know/prepared_knowledge/test_common_neighbor_top3 \
+     -output new_train_decode/all_copy_attn_top3_r54f37_mlp \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+

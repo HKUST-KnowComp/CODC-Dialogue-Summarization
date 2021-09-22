@@ -1,0 +1,115 @@
+# training with classifier result
+
+python preprocess.py -knowledge \
+        -train_src /home/tfangaa/projects/process_dial2desc/all_5_caps/train_dialog_shuffle \
+        -train_tgt /home/tfangaa/projects/process_dial2desc/all_5_caps/train_descs_shuffle \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.test.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.test.txt \
+        -save_data dataset/ood/train_with_ret_know/train_top3 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 500000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 15 \
+        -train_know /home/tfangaa/projects/process_dial2desc/all_5_caps/train_top3_20200314 \
+        -valid_know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top5 \
+        -overwrite
+
+
+
+# train dataset with manually noised knowledge
+
+# this is no know, for baseline
+
+python preprocess.py  \
+        -train_src /home/tfangaa/projects/process_dial2desc/all_5_caps/train_dialog_shuffle \
+        -train_tgt /home/tfangaa/projects/process_dial2desc/all_5_caps/train_descs_shuffle \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.test.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.test.txt \
+        -save_data dataset/ood/all_caps/train_dialog_shuffle_noknow \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 500000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -overwrite
+
+python preprocess.py -knowledge \
+        -train_src /home/tfangaa/projects/process_dial2desc/all_5_caps/train_dialog_shuffle \
+        -train_tgt /home/tfangaa/projects/process_dial2desc/all_5_caps/train_descs_shuffle \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.test.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.test.txt \
+        -save_data dataset/ood/all_caps/train_dialog_shuffle_ood_r57_f54 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 500000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 15 \
+        -train_know /home/tfangaa/projects/process_dial2desc/all_5_caps/train_know_ood_r57_f54 \
+        -valid_know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top5 \
+        -overwrite
+
+
+python preprocess.py -knowledge \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/data/corpora/Dial2Desc/desc.train.txt \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.test.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.test.txt \
+        -save_data dataset/ood/train_ood \
+        -train_know /home/tfangaa/projects/process_dial2desc/depen-parse/knowledge/train_ood \
+        -valid_know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top5 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 15 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite
+
+python preprocess.py -knowledge \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/data/corpora/Dial2Desc/desc.train.txt \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.test.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.test.txt \
+        -save_data dataset/ood/train_ood_top3_r40_f47 \
+        -train_know /home/tfangaa/projects/process_dial2desc/depen-parse/knowledge/train_ood_top3_r40_f47 \
+        -valid_know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top5 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 15 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -overwrite
+
+

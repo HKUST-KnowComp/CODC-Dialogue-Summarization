@@ -1,0 +1,70 @@
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model imp_model/seq2seq_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -output imp_model/decode_seq2seq_5 \
+     -min_length 5 \
+     -max_length 5 \
+     -verbose 
+
+python translate.py -gpu 3 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/imp_test/basic_test_step_100000.pt \
+     -src /home/data/corpora/Dial2Desc/dialog.test.txt \
+     -output models/imp_test/decode_basic_test \
+     -min_length 0 \
+     -max_length 10 \
+     -verbose 
+
+python translate.py -gpu 2 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/imp_test/dec_pre_step_100000.pt \
+     -src /home/data/corpora/Dial2Desc/dialog.test.txt \
+     -output models/imp_test/decode_dec_pre_test \
+     -min_length 0 \
+     -max_length 10 \
+     -verbose 
+
+python translate.py -gpu 2 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/imp_test/encdec_pre_step_100000.pt \
+     -src /home/data/corpora/Dial2Desc/dialog.test.txt \
+     -output models/imp_test/decode_encdec_pre_test \
+     -min_length 0 \
+     -max_length 10 \
+     -verbose 
+
+python translate.py -gpu 2 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/imp_test/encdec_pre_emb200_step_100000.pt \
+     -src /home/data/corpora/Dial2Desc/dialog.test.txt \
+     -output models/imp_test/decode_encdec_pre_test_emb200 \
+     -min_length 2 \
+     -max_length 10 \
+     -verbose 
+
+python translate.py -gpu 2 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/imp_test/transformer_dec_pre_emb200_step_20000.pt \
+     -src /home/data/corpora/Dial2Desc/dialog.test.txt \
+     -output models/imp_test/trans_20k \
+     -min_length 2 \
+     -max_length 10 \
+     -verbose 
+
+python translate.py -gpu 2 \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/imp_test/filtered_emb200_step_100000.pt \
+     -src /home/data/corpora/Dial2Desc/dialog.test.txt \
+     -output models/imp_test/filtered_emb200_min5 \
+     -min_length 5 \
+     -max_length 10 \
+     -verbose 

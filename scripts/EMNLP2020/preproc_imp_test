@@ -1,0 +1,52 @@
+python preprocess.py \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/tfangaa/projects/implicature/desc_imp_as_know/train_know.txt \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.valid.txt \
+        -valid_tgt /home/tfangaa/projects/implicature/desc_imp_as_know/valid_know.txt \
+        -save_data dataset/processed/imp_test_200enc_10dec_20kvocab \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 10 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -overwrite
+
+python preprocess.py \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/tfangaa/projects/implicature/desc_imp_as_know/no_wn_filter/train_imp_without_wn.txt.filter \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.valid.txt \
+        -valid_tgt /home/tfangaa/projects/implicature/desc_imp_as_know/no_wn_filter/valid_imp_without_wn.txt.filter \
+        -save_data dataset/processed/no_wn_impgen_seq2seq_noshare \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 20 \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -overwrite
+
+python preprocess.py \
+        -train_src /home/data/corpora/Dial2Desc/dialog.train.txt \
+        -train_tgt /home/tfangaa/projects/implicature/desc_imp_as_know/train_know.txt.filter \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.valid.txt \
+        -valid_tgt /home/tfangaa/projects/implicature/desc_imp_as_know/valid_know.txt.filter \
+        -save_data dataset/processed/filter_imp_test_200enc_10dec_20kvocab \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 10 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 100000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -overwrite
+
+python embeddings_to_torch.py -emb_file_both "/home/data/corpora/word_embeddings/english_embeddings/glove/glove.6B.200d.txt" \
+-dict_file "dataset/processed/imp_test_200enc_10dec_20kvocab.vocab.pt" \
+-output_file "dataset/processed/imp_test_glove_emb_200d"

@@ -1,0 +1,148 @@
+
+
+python eval_codc.py \
+    -d /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected \
+    -r /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref2 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref3 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref5 \
+    -c selected_item/test_trans \
+    --use-cache \
+    --grt-cache-path /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected_grt.cache.pkl \
+    --cand-cache-path selected_item/test_trans.cache.pkl
+
+[MEAN BASED]
+Precision: 32.01
+Recall: 23.11
+F1: 26.84
+[MAX BASED]
+Precision: 55.37
+Recall: 47.52
+F1: 51.14
+[MAX BASED REMOVE 0 in recall]
+Precision: 55.37
+Recall: 50.06
+F1: 52.58
+
+python eval_codc.py \
+    -d /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected \
+    -r /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref2 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref3 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref5 \
+    -c selected_item/test_top3 \
+    --use-cache \
+    --grt-cache-path /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected_grt.cache.pkl \
+    --cand-cache-path selected_item/test_top3.cache.pkl
+
+[MEAN BASED]
+Precision: 31.86
+Recall: 25.57
+F1: 28.37
+[MAX BASED]
+Precision: 56.17
+Recall: 50.65
+F1: 53.27
+[MAX BASED REMOVE 0 in recall]
+Precision: 56.17
+Recall: 53.05
+F1: 54.57
+
+### All test set
+
+1. trans-copy base_trans_all
+
+python eval_codc.py \
+    -d dataset/Dial2Desc/dialog.test.txt \
+    -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt \
+    -c selected_item/base_trans_all \
+    --use-cache \
+    --grt-cache-path dataset/Dial2Desc/test_dialog.cache.pkl \
+    --cand-cache-path selected_item/base_trans_all.cache.pkl
+
+python eval_codc.py \
+    -d dataset/Dial2Desc/dialog.test.txt \
+    -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt \
+    -c new_train_decode/trans_copy_top3_mlp_previousknow \
+    --use-cache \
+    --grt-cache-path dataset/Dial2Desc/test_dialog.cache.pkl \
+    --cand-cache-path /home/tfangaa/projects/OpenNMT-py-summ/new_train_decode/trans_copy_top3_mlp_previousknow.cache.pkl
+
+[MEAN BASED]
+Precision: 28.27
+Recall: 20.11
+F1: 23.50
+[MAX BASED]
+Precision: 52.57
+Recall: 49.34
+F1: 50.90
+
+2. know: top3_r54f37_all
+
+python eval_codc.py \
+    -d dataset/Dial2Desc/dialog.test.txt \
+    -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt \
+    -c selected_item/top3_r54f37_all \
+    --use-cache \
+    --grt-cache-path dataset/Dial2Desc/test_dialog.cache.pkl \
+    --cand-cache-path selected_item/top3_r54f37_all.cache.pkl
+
+[MEAN BASED]
+Precision: 27.00
+Recall: 21.39
+F1: 23.87
+[MAX BASED]
+Precision: 51.10
+Recall: 49.98
+F1: 50.53
+
+3. know: /home/tfangaa/projects/OpenNMT-py-summ/dep_models/new_graph/decode_trans_know_top3_with_common_neighbor_top3
+
+python eval_codc.py \
+    -d dataset/Dial2Desc/dialog.test.txt \
+    -r ../OpenNMT-py/refs/ref1_rev.txt ../OpenNMT-py/refs/ref2_rev.txt ../OpenNMT-py/refs/ref3_rev.txt ../OpenNMT-py/refs/ref4_rev.txt ../OpenNMT-py/refs/ref5_rev.txt \
+    -c /home/tfangaa/projects/OpenNMT-py-summ/dep_models/new_graph/decode_trans_know_top3_with_common_neighbor_top3 \
+    --use-cache \
+    --grt-cache-path dataset/Dial2Desc/test_dialog.cache.pkl \
+    --cand-cache-path /home/tfangaa/projects/OpenNMT-py-summ/dep_models/new_graph/decode_trans_know_top3_with_common_neighbor_top3.cache.pkl
+
+[MEAN BASED]
+Precision: 28.12
+Recall: 20.23
+F1: 23.53
+[MAX BASED]
+Precision: 52.62
+Recall: 49.32
+F1: 50.92
+
+
+=================================================================================
+seq2seq 
+python eval_codc.py \
+    -d /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected \
+    -r /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref2 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref3 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref5 \
+    -c selected_item/seq2seq/seq2seq_top3_r54f37_general_selected \
+    --use-cache \
+    --grt-cache-path /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected_grt.cache.pkl \
+    --cand-cache-path selected_item/seq2seq/seq2seq_top3_r54f37_general_selected.cache.pkl
+
+python eval_codc.py \
+    -d /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected \
+    -r /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref2 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref3 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref5 \
+    -c selected_item/seq2seq/seq2seq_baseline_selected \
+    --use-cache \
+    --grt-cache-path /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected_grt.cache.pkl \
+    --cand-cache-path selected_item/seq2seq/seq2seq_baseline_selected.cache.pkl
+
+=================================================================================
+copy-attn 
+python eval_codc.py \
+    -d /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected \
+    -r /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref2 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref3 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref5 \
+    -c selected_item/copy_attn/copy_attn_baseline_selected \
+    --use-cache \
+    --grt-cache-path /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected_grt.cache.pkl \
+    --cand-cache-path selected_item/copy_attn/copy_attn_baseline_selected.cache.pkl
+
+=================================================================================
+python eval_codc.py \
+    -d /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected \
+    -r /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref2 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref3 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref1 /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_ref5 \
+    -c selected_item/trans_top3_r54f37_general \
+    --use-cache \
+    --grt-cache-path /home/tfangaa/projects/process_dial2desc/depen-parse/restrict_vocab/maytest/test_dialog_selected_grt.cache.pkl \
+    --cand-cache-path selected_item/trans_top3_r54f37_general.cache.pkl

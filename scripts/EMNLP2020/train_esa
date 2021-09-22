@@ -1,0 +1,148 @@
+## train know: 每个只给5个knowledge，其中只有两个是对的，f1=???
+train_ood_r57_f54, train_ood_r40_f37, train_ood, train_ood_top3_r40_f47, train_ood_top8_r57_f42, all_caps/train_dialog_shuffle_noknow, all_caps/train_dialog_shuffle_ood_r57_f54 (top_10),
+CUDA_VISIBLE_DEVICES=3 nohup python -u train.py -save_model dep_models/ood/all_caps/train_ood_r57_f54_pkgen_mlp \
+           -know_train_from /home/tfangaa/projects/OpenNMT-py/models/baseline_O/copy_attn/v10k/copy_attn_step_100000.pt \
+           -know_train_from_type finetune \
+           -p_kgen_func mlp \
+           -data dataset/ood/all_caps/train_dialog_shuffle_ood_r57_f54 \
+           -knowledge \
+           -know_emb_init from_tgt \
+           -know_loss_lambda 0.0 \
+           -know_attn_type mlp \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 200000 \
+           -start_decay_steps 50000 \
+           -max_grad_norm 2 \
+           -dropout 0.0 \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 5000 > info/ood/all_caps_train_ood_r57_f54_pkgen_mlp &
+
+CUDA_VISIBLE_DEVICES=3 python -u train.py -save_model dep_models/ood/all_caps/train_ood_r57_f54_fromscratch_pkgen_mlp \
+           -p_kgen_func mlp \
+           -data dataset/ood/all_caps/train_dialog_shuffle_ood_r57_f54 \
+           -knowledge \
+           -know_emb_init from_tgt \
+           -know_loss_lambda 0.0 \
+           -know_attn_type mlp \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 200000 \
+           -start_decay_steps 50000 \
+           -max_grad_norm 2 \
+           -dropout 0.0 \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 5000 > info/ood/all_caps_train_ood_r57_f54_fromscratch_pkgen_mlp &
+dataset/ood/all_caps/train_dialog_shuffle_ood_r57_f54
+CUDA_VISIBLE_DEVICES=0 python -u train.py -save_model dep_models/ood/all_caps/trans_copy_ood_r57_f54_pkgen_mlp \
+    -know_train_from dep_models/all_caps_baseline/trans_copy_step_40000.pt \
+    -know_train_from_type finetune \
+    -p_kgen_func mlp \
+    -data dataset/ood/train_ood_r57_f54 \
+    -knowledge \
+    -know_emb_init from_tgt \
+    -know_loss_lambda 0.0 \
+    -know_attn_type mlp \
+    -know_query ori_query \
+    -prob_logits_type original \
+    -layers 4 \
+    -rnn_size 256 \
+    -word_vec_size 256 \
+    -max_grad_norm 0 \
+    -optim adam \
+    -encoder_type transformer \
+    -decoder_type transformer \
+    -position_encoding \
+    -dropout 0.2 \
+    -param_init 0 \
+    -warmup_steps 8000 \
+    -learning_rate 2 \
+    -decay_method noam \
+    -label_smoothing 0.1 \
+    -adam_beta2 0.998 \
+    -batch_size 4096 \
+    -batch_type tokens \
+    -normalization tokens \
+    -max_generator_batches 2 \
+    -train_steps 100000 \
+    -accum_count 4 \
+    -share_embeddings \
+    -param_init_glorot \
+    -world_size 1 \
+    -gpu_ranks 0 \
+    -valid_steps 2500 > info/ood/trans_copy_ood_r57_f54_pkgen_mlp &
+
+CUDA_VISIBLE_DEVICES=3 python -u train.py -save_model dep_models/all_caps_baseline/trans_copy -data ../OpenNMT-py/data/200enc_15dec_20kvocab -layers 4 -rnn_size 256 -word_vec_size 256 -max_grad_norm 0 -optim adam -encoder_type transformer -decoder_type transformer -position_encoding -dropout 0.2 -param_init 0 -warmup_steps 8000 -learning_rate 2 -decay_method noam -label_smoothing 0.1 -adam_beta2 0.998 -batch_size 4096 -batch_type tokens -normalization tokens -max_generator_batches 2 -train_steps 100000 -accum_count 4 -share_embeddings -copy_attn -param_init_glorot -world_size 1 -gpu_ranks 0 -valid_steps 5000
+
+# baseline using shuffle 5 dataset
+
+CUDA_VISIBLE_DEVICES=1 nohup python -u train.py -save_model dep_models/all_caps_baseline/seq2seq -data dataset/ood/all_caps/train_dialog_shuffle_noknow -global_attention mlp -word_vec_size 128 -rnn_size 256 -layers 1 -encoder_type brnn -train_steps 200000 -max_grad_norm 2 -dropout 0. -batch_size 16 -valid_batch_size 16 -optim adagrad -learning_rate 0.15 -adagrad_accumulator_init 0.1 -copy_loss_by_seqlength -bridge -seed 777 -world_size 1 -gpu_ranks 0 -valid_steps 10000 > info/all_cap_seq2seq &
+
+CUDA_VISIBLE_DEVICES=1 nohup python -u train.py -save_model dep_models/all_caps_baseline/copy_attn -data dataset/ood/all_caps/train_dialog_shuffle_noknow -copy_attn -global_attention mlp -word_vec_size 128 -rnn_size 256 -layers 1 -encoder_type brnn -train_steps 200000 -max_grad_norm 2 -dropout 0. -batch_size 16 -valid_batch_size 16 -optim adagrad -learning_rate 0.15 -adagrad_accumulator_init 0.1 -reuse_copy_attn -copy_loss_by_seqlength -bridge -seed 229 -world_size 1 -gpu_ranks 0 -valid_steps 10000 > info/all_cap_copy_attn &
+
+CUDA_VISIBLE_DEVICES=0 python -u train.py -save_model dep_models/all_caps_baseline/trans_copy -data dataset/ood/all_caps/train_dialog_shuffle_noknow -layers 4 -rnn_size 256 -word_vec_size 256 -max_grad_norm 0 -optim adam -encoder_type transformer -decoder_type transformer -position_encoding -dropout 0.2 -param_init 0 -warmup_steps 8000 -learning_rate 2 -decay_method noam -label_smoothing 0.1 -adam_beta2 0.998 -batch_size 4096 -batch_type tokens -normalization tokens -max_generator_batches 2 -train_steps 100000 -accum_count 4 -share_embeddings -copy_attn -param_init_glorot -world_size 1 -gpu_ranks 0 -valid_steps 5000 > info/all_cap_trans_copy &
+
+
+
+## 看看no_wn的datasettrain着还对么
+
+CUDA_VISIBLE_DEVICES=1 nohup python -u train.py -save_model dep_models/mesa/deptest_no_wn_filter_noreg \
+           -know_train_from /home/tfangaa/projects/OpenNMT-py/models/baseline_O/copy_attn/v10k/copy_attn_step_100000.pt \
+           -know_train_from_type finetune \
+           -data dataset/processed/no_wn_filter \
+           -knowledge \
+           -know_emb_init from_tgt \
+           -know_loss_lambda 0.0 \
+           -output_dropout 0.0 \
+           -know_gen_lambda 0.0 \
+           -know_attn_type mlp \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -start_decay_steps 50000 \
+           -max_grad_norm 2 \
+           -dropout 0.0 \
+           -know_attn_dropout 0.0 \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 5000 > info/deptest_no_wn_filter_noreg &
+
+试一下know generator regularization loss

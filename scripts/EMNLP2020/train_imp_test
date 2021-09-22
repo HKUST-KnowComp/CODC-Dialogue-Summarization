@@ -1,0 +1,147 @@
+CUDA_VISIBLE_DEVICES=0 nohup python -u train.py -save_model imp_model/seq2seq \
+           -data dataset/processed/no_wn_impgen_seq2seq_noshare \
+           -global_attention mlp \
+           -word_vec_size 200 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 10000 > impinfo/seq2seq &
+
+CUDA_VISIBLE_DEVICES=1 nohup python -u train.py -save_model models/imp_test/basic_test_emb200 \
+           -data dataset/processed/imp_test_200enc_10dec_20kvocab \
+           -global_attention mlp \
+           -word_vec_size 200 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_teps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 10000 > info/imp_test &
+
+pre_word_vecs_enc
+
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py -save_model models/imp_test/encdec_pre_emb200 \
+           -data dataset/processed/imp_test_200enc_10dec_20kvocab \
+           -global_attention mlp \
+           -word_vec_size 200 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 10000 \
+           s
+           > info/imp_test &
+
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py -save_model models/imp_test/dec_pre_emb200 \
+           -data dataset/processed/imp_test_200enc_10dec_20kvocab \
+           -global_attention mlp \
+           -word_vec_size 200 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 10000 \
+           -pre_word_vecs_dec dataset/processed/imp_test_glove_emb_200d.dec.pt \
+           > info/imp_dec &
+
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py \
+           -data dataset/processed/imp_test_200enc_10dec_20kvocab \
+           -save_model models/imp_test/transformer_dec_pre_emb200 \
+           -layers 4 \
+           -rnn_size 256 \
+           -word_vec_size 256 \
+           -max_grad_norm 0 \
+           -optim adam \
+           -encoder_type transformer \
+           -decoder_type transformer \
+           -position_encoding \
+           -dropout 0\.2 \
+           -param_init 0 \
+           -warmup_steps 8000 \
+           -learning_rate 2 \
+           -decay_method noam \
+           -label_smoothing 0.1 \
+           -adam_beta2 0.998 \
+           -batch_size 4096 \
+           -batch_type tokens \
+           -normalization tokens \
+           -max_generator_batches 2 \
+           -train_steps 20000 \
+           -accum_count 4 \
+           -share_embeddings \
+           -copy_attn \
+           -param_init_glorot \
+           -world_size 1 \
+           -gpu_ranks 0 > info/transformer_imp &
+
+
+
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py -save_model models/imp_test/filtered_emb200 \
+           -data dataset/processed/filter_imp_test_200enc_10dec_20kvocab \
+           -global_attention mlp \
+           -word_vec_size 200 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 10000 > info/imp_test &

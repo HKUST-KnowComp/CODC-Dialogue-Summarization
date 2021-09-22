@@ -1,0 +1,62 @@
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py -save_model dep_models/input_attn/top_10_loss001_share \
+           -know_train_from /home/tfangaa/projects/OpenNMT-py/models/baseline_O/copy_attn/v10k/copy_attn_step_100000.pt \
+           -know_train_from_type finetune \
+           -data dataset/processed/dep_ret_as_know_top10 \
+           -input_attn \
+           -know_star_attn_share \
+           -knowledge \
+           -p_kgen_loss \
+           -know_emb_init from_tgt \
+           -know_loss_lambda 0.01 \
+           -know_attn_type mlp \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 1000000 > info/input_attn/top_10_loss001_share &
+
+CUDA_VISIBLE_DEVICES=2 nohup python -u train.py -save_model dep_models/input_attn/top_10_loss001_no_share \
+           -know_train_from /home/tfangaa/projects/OpenNMT-py/models/baseline_O/copy_attn/v10k/copy_attn_step_100000.pt \
+           -know_train_from_type finetune \
+           -data dataset/processed/dep_ret_as_know_top10 \
+           -input_attn \
+           -knowledge \
+           -p_kgen_loss \
+           -know_emb_init from_tgt \
+           -know_loss_lambda 0.01 \
+           -know_attn_type mlp \
+           -global_attention mlp \
+           -word_vec_size 128 \
+           -rnn_size 256 \
+           -layers 1 \
+           -encoder_type brnn \
+           -train_steps 100000 \
+           -max_grad_norm 2 \
+           -dropout 0. \
+           -batch_size 16 \
+           -valid_batch_size 16 \
+           -optim adagrad \
+           -learning_rate 0.15 \
+           -adagrad_accumulator_init 0.1 \
+           -reuse_copy_attn \
+           -copy_loss_by_seqlength \
+           -bridge \
+           -seed 229 \
+           -world_size 1 \
+           -gpu_ranks 0 \
+           -valid_steps 1000000 > info/input_attn/top_10_loss001_no_share &

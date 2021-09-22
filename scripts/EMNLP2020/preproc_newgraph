@@ -1,0 +1,47 @@
+
+
+python preprocess.py -knowledge \
+        -train_src /home/tfangaa/projects/process_dial2desc/all_5_caps/train_dialog_shuffle \
+        -train_tgt /home/tfangaa/projects/process_dial2desc/all_5_caps/train_descs_shuffle \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.test.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.test.txt \
+        -save_data dataset/new_graph/train_ood_top3_r54_f37 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 500000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 15 \
+        -train_know /home/tfangaa/projects/process_dial2desc/dep_wordnet_know/knowledge-for-summarization/all_5_caps/train_ood_top3_r54_f37 \
+        -valid_know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top5 \
+        -overwrite
+
+python preprocess.py -knowledge \
+        -train_src /home/tfangaa/projects/process_dial2desc/all_5_caps/train_dialog_shuffle \
+        -train_tgt /home/tfangaa/projects/process_dial2desc/all_5_caps/train_descs_shuffle \
+        -valid_src /home/data/corpora/Dial2Desc/dialog.test.txt \
+        -valid_tgt /home/data/corpora/Dial2Desc/desc.test.txt \
+        -save_data dataset/new_graph/train_ood_r80_f43 \
+        -src_seq_length 10000 \
+        -tgt_seq_length 10000 \
+        -src_seq_length_trunc 200 \
+        -tgt_seq_length_trunc 15 \
+        -dynamic_dict \
+        -share_vocab \
+        -shard_size 500000 \
+        -src_vocab_size 20000 \
+        -tgt_vocab_size 20000 \
+        -know_vocab_size 20000 \
+        -know_seq_length 50 \
+        -know_seq_length_trunc 15 \
+        -train_know /home/tfangaa/projects/process_dial2desc/dep_wordnet_know/knowledge-for-summarization/all_5_caps/train_ood_r80_f43 \
+        -valid_know /home/tfangaa/projects/process_dial2desc/depen-parse/similarity/knowledge_file/ood_rf_top5 \
+        -overwrite
+
+        

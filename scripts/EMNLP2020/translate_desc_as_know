@@ -1,0 +1,83 @@
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/desc_as_know_no_wn/ori_imp_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/process_dial2desc/depen-parse/dep_ret_as_know/test_retrieved_top_20_filter_num_1cutoff_prob_0.002 \
+     -output dep_models/tianqingtest \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/desc_as_know_O/basic_test_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/implicature/desc_imp_as_know/test_know.txt \
+     -output models/desc_as_know_O/decode_100k_test1130 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/desc_as_know_M/basic_test_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/implicature/desc_imp_as_know/test_know.txt \
+     -output models/desc_as_know_M/MO_decode_100k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/desc_as_know_M/basic_test_step_100000.pt \
+     -src dataset/Dial2Desc_masked/dialog.test.txt \
+     -know /home/tfangaa/projects/implicature/desc_imp_as_know/test_know.txt \
+     -output models/desc_as_know_M/MM_decode_100k \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/desc_as_know_O/basic_test_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/OpenNMT-py/models/imp_test/decode_basic_test \
+     -output models/use_pred_imp/decode_basic \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/desc_as_know_O/basic_test_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/implicature/desc_imp_as_know/test_know.txt \
+     -output models/use_pred_imp/decode_basic_2 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose
+
+python translate.py -gpu 3 \
+     -knowledge \
+     -batch_size 20 \
+     -beam_size 4 \
+     -model models/desc_as_know_O/basic_test_step_100000.pt \
+     -src dataset/Dial2Desc/dialog.test.txt \
+     -know /home/tfangaa/projects/OpenNMT-py/models/imp_test/decode_encdec_pre_test_emb200 \
+     -output models/use_pred_imp/imp_min_length2 \
+     -min_length 5 \
+     -max_length 15 \
+     -verbose 
