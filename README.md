@@ -3,7 +3,7 @@ Codes of the AKBC 2021 paper: [Do Boat and Ocean Suggest Beach? Dialogue Summari
 
 ## Data
 
-The data can be downloaded [here](https://hkustconnect-my.sharepoint.com/:f:/g/personal/tfangaa_connect_ust_hk/EjD-ja-VRQJIrTzrs0pjdcEBfn80IukIdDslTavGWdnSkg?e=JVxlui).
+The data can be downloaded [here](https://hkustconnect-my.sharepoint.com/:f:/g/personal/tfangaa_connect_ust_hk/Eur2zirUWiRNtlusZpId39IBmXyAgl_p3YUZ-CQi8_UizQ?e=ND1lpR).
 
 ## Experiments
 
